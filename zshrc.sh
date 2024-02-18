@@ -153,6 +153,45 @@ eval "$(pyenv init -)"
 # (g) Sublime 
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
+# (h) Conda
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/Users/nitinbhandari/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/Users/nitinbhandari/miniforge3/etc/profile.d/conda.sh" ]; then
+#        . "/Users/nitinbhandari/miniforge3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/Users/nitinbhandari/miniforge3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+#
+#if [ -f "/Users/nitinbhandari/miniforge3/etc/profile.d/mamba.sh" ]; then
+#    . "/Users/nitinbhandari/miniforge3/etc/profile.d/mamba.sh"
+#fi
+# <<< conda initialize <<<
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE='/usr/local/opt/micromamba/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/Users/nitinbhandari/micromamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+
+alias mamba='micromamba'
+# <<< mamba initialize <<<
+
+# (i) MySQL
+export PATH=${PATH}:/usr/local/mysql/bin/
 
 
 #   -----------------------------
@@ -299,4 +338,3 @@ alias showBlocked='sudo ipfw list'                  # showBlocked:  All ipfw rul
 # GPG for GitSignature
 # export GPG_TTY=$(tty)
 # gpgconf --launch gpg-agent
-

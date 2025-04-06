@@ -8,7 +8,7 @@
 #  4.  Searching
 #  5.  Process Management
 #  6.  Networking
-#  7.  System Operations & Infromation
+#  7.  System Operations & Information
 #  8.  Reminders & Notes
 #  ---------------------------------------------------------------------------
 
@@ -28,9 +28,7 @@ export PATH=/usr/local/bin:$PATH
 # (b) Twitter Code (https://github.com/aritter/twitter_nlp)
 # export TWITTER_NLP=./
 
-# (c) Pyenv Path
-eval "$(pyenv init -)"
-
+# (c) Python Path
 
 # (d) Python Virtual Env Wrapper
 # export WORKON_HOME=$HOME/.virtualenvs
@@ -41,30 +39,18 @@ eval "$(pyenv init -)"
 # source /usr/local/bin/virtualenvwrapper.sh
 
 # (e) Google SDK
-# export PATH="/usr/lib/google-cloud-sdk/bin:$PATH"
+export PATH="/usr/lib/google-cloud-sdk/bin:$PATH"
 
 # (f) Bash Completion Support
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-# (g) Sublime 
+# (g) Sublime
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
-# (h) Conda
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/Users/nitinbhandari/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/Users/nitinbhandari/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/Users/nitinbhandari/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/Users/nitinbhandari/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-# <<< conda initialize <<<
+# (h) Mamba
+export PATH="/opt/homebrew/opt/micromamba/bin:$PATH"
 
+# >>> mamba initialize >>>
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE='/usr/local/opt/micromamba/bin/micromamba';
@@ -80,17 +66,16 @@ unset __mamba_setup
 alias mamba='micromamba'
 # <<< mamba initialize <<<
 
-# (i) MySQL
-export PATH=${PATH}:/usr/local/mysql/bin/
-
 
 #   -----------------------------
 #   2. MAKE TERMINAL BETTER
 #   -----------------------------
 
 #alias cp='cp -iv'                           # Preferred 'cp' implementation
+alias dy="dig +short @dns.toys"             # using dns.toys by Kailash Nadh
+alias dyhelp='echo "DNS.toys Examples:"; echo "==================="; echo "dig help @dns.toys                                       # Get help"; echo "dig mumbai.time @dns.toys                               # Get time for a city"; echo "dig 2023-05-28T14:00-bengaluru-berlin/de.time @dns.toys # Convert time between cities"; echo "dig newyork.weather @dns.toys                           # Get weather for a city"; echo "dig 42km-mi.unit @dns.toys                              # Convert units"; echo "dig 100USD-INR.fx @dns.toys                             # Currency conversion"; echo "dig ip @dns.toys                                        # Get your public IP"; echo "dig 987654321.words @dns.toys                           # Convert number to words"; echo "dig pi @dns.toys                                        # Get value of pi"; echo "dig 100dec-hex.base @dns.toys                           # Convert between number bases"; echo "dig fun.dict @dns.toys                                  # Get definition of a word"; echo "dig excuse @dns.toys                                    # Get a random programmer excuse"; echo "dig A12.9352,77.6245/12.9698,77.7500.aerial @dns.toys   # Get aerial distance between coordinates"; echo "dig 5.16.nanoid @dns.toys                               # Generate nanoid"'
 alias c='clear'
-alias ll='ls -aFGlAhp'                      # Preferred 'ls' implementation
+alias ll='ls -aFGlAhp'                        # Preferred 'ls' implementation
 cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level

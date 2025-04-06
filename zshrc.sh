@@ -70,7 +70,12 @@ ZSH_THEME="amuse"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    you-should-use
+    )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,6 +104,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 #  ---------------------------------------------------------------------------
 #  Description:  This file holds all my BASH configurations and aliases
@@ -130,56 +137,36 @@ export PATH=/usr/local/bin:$PATH
 # (b) Twitter Code (https://github.com/aritter/twitter_nlp)
 # export TWITTER_NLP=./
 
-# (c) Pyenv Path
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# (c) Python Path
 
-
-# (d) Python Virtual Env Wrapper
+# (d) Python Virtual Env Wrapper, Pyenv and Pyenv-virtualenv
 # export WORKON_HOME=$HOME/.virtualenvs
 # export PROJECT_HOME=$HOME/projects
 
 # export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 # export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 # source /usr/local/bin/virtualenvwrapper.sh
+eval "$(pyenv init -)"
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 # (e) Google SDK
-# export PATH="/usr/lib/google-cloud-sdk/bin:$PATH"
+export PATH="/usr/lib/google-cloud-sdk/bin:$PATH"
 
 # (f) Bash Completion Support
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
-# (g) Sublime 
+# (g) Sublime
 export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 
-# (h) Conda
+# (h) Mamba
+export PATH="/opt/homebrew/opt/micromamba/bin:$PATH"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/Users/nitinbhandari/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/Users/nitinbhandari/miniforge3/etc/profile.d/conda.sh" ]; then
-#        . "/Users/nitinbhandari/miniforge3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/Users/nitinbhandari/miniforge3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-#
-#if [ -f "/Users/nitinbhandari/miniforge3/etc/profile.d/mamba.sh" ]; then
-#    . "/Users/nitinbhandari/miniforge3/etc/profile.d/mamba.sh"
-#fi
-# <<< conda initialize <<<
-
-
+# >>> mamba initialize >>>
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE='/usr/local/opt/micromamba/bin/micromamba';
 export MAMBA_ROOT_PREFIX='/Users/nitinbhandari/micromamba';
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__mamba_setup"
 else
@@ -190,17 +177,20 @@ unset __mamba_setup
 alias mamba='micromamba'
 # <<< mamba initialize <<<
 
-# (i) MySQL
-export PATH=${PATH}:/usr/local/mysql/bin/
-
 
 #   -----------------------------
 #   2. MAKE TERMINAL BETTER
 #   -----------------------------
 
+function lolbanner {
+  figlet -c -f ~/.local/share/fonts/figlet-fonts/3d.flf $@ | lolcat
+}
+
 #alias cp='cp -iv'                           # Preferred 'cp' implementation
+alias dy="dig +short @dns.toys"             # using dns.toys by Kailash Nadh
+alias dyhelp='echo "DNS.toys Examples:"; echo "==================="; echo "dig help @dns.toys                                       # Get help"; echo "dig mumbai.time @dns.toys                               # Get time for a city"; echo "dig 2023-05-28T14:00-bengaluru-berlin/de.time @dns.toys # Convert time between cities"; echo "dig newyork.weather @dns.toys                           # Get weather for a city"; echo "dig 42km-mi.unit @dns.toys                              # Convert units"; echo "dig 100USD-INR.fx @dns.toys                             # Currency conversion"; echo "dig ip @dns.toys                                        # Get your public IP"; echo "dig 987654321.words @dns.toys                           # Convert number to words"; echo "dig pi @dns.toys                                        # Get value of pi"; echo "dig 100dec-hex.base @dns.toys                           # Convert between number bases"; echo "dig fun.dict @dns.toys                                  # Get definition of a word"; echo "dig excuse @dns.toys                                    # Get a random programmer excuse"; echo "dig A12.9352,77.6245/12.9698,77.7500.aerial @dns.toys   # Get aerial distance between coordinates"; echo "dig 5.16.nanoid @dns.toys                               # Generate nanoid"'
 alias c='clear'
-alias ll='ls -aFGlAhp'                      # Preferred 'ls' implementation
+alias ll='ls -aFGlAhp'                        # Preferred 'ls' implementation
 cd() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level
